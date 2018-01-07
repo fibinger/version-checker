@@ -1,0 +1,11 @@
+spring:
+    application:
+        name: version-checker
+    datasource:
+        url: jdbc:mysql://localhost/version_checker?useSSL=false
+        username: tide
+        password: tide
+flyway:
+  url: ${spring.datasource.url}
+  user: ${spring.datasource.username}
+  password: ${spring.datasource.password}
