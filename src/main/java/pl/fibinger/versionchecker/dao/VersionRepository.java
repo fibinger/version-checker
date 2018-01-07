@@ -5,4 +5,6 @@ import pl.fibinger.versionchecker.domain.Version;
 
 public interface VersionRepository extends JpaRepository<Version, Long> {
 
+    Version findByName(String name);
+
 }
