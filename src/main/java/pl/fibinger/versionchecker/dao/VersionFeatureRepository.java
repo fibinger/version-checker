@@ -10,4 +10,6 @@ public interface VersionFeatureRepository extends JpaRepository<VersionFeature, 
 
     List<VersionFeature> findByVersion(Version version);
 
+    void deleteByVersion(Version version);
+
 }

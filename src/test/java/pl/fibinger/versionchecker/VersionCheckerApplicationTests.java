@@ -15,6 +15,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+import pl.fibinger.versionchecker.dto.VersionDTO;
 import pl.fibinger.versionchecker.representation.VersionRepresentation;
 
 import java.util.List;
@@ -38,11 +39,11 @@ public class VersionCheckerApplicationTests {
 
     @Test
     public void test_2_addSomeVersions() {
-        restTemplate.postForEntity("/versions", "1.0", Void.class);
-        restTemplate.postForEntity("/versions", "1.8", Void.class);
+        restTemplate.postForEntity("/versions", new VersionDTO("1.0", false, "xero", "billing", "account"), Void.class);
+        restTemplate.postForEntity("/versions", new VersionDTO("1.8", true, "xero"), Void.class);
 
-        restTemplate.postForEntity("/versions/1.0/features", new String[]{"xero", "billing", "account"}, Void.class);
-        restTemplate.postForEntity("/versions/1.8/features", new String[]{"xero", "billing"}, Void.class);
+        restTemplate.put("/versions/1.0/features", new String[]{"xero", "account"});
+        restTemplate.put("/versions/1.8/features", new String[]{"xero", "billing"});
     }
 
     @Test
@@ -54,8 +55,8 @@ public class VersionCheckerApplicationTests {
 
         VersionRepresentation version1_0 = restTemplate.getForEntity("/versions/1.0/validity", VersionRepresentation.class).getBody();
         VersionRepresentation version1_8 = restTemplate.getForEntity("/versions/1.8/validity", VersionRepresentation.class).getBody();
-        Assert.assertEquals(new VersionRepresentation().setName("1.0").setActiveFeatures(ImmutableSet.of("xero", "billing", "account")), version1_0);
-        Assert.assertEquals(new VersionRepresentation().setName("1.8").setActiveFeatures(ImmutableSet.of("xero", "billing")), version1_8);
+        Assert.assertEquals(new VersionRepresentation().setValid(false).setName("1.0").setActiveFeatures(ImmutableSet.of("xero", "account")), version1_0);
+        Assert.assertEquals(new VersionRepresentation().setValid(true).setName("1.8").setActiveFeatures(ImmutableSet.of("xero", "billing")), version1_8);
     }
 
 }

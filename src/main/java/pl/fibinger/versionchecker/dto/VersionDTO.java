@@ -1,11 +1,13 @@
-package pl.fibinger.versionchecker.representation;
+package pl.fibinger.versionchecker.dto;
 
 import com.google.common.base.MoreObjects;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class VersionRepresentation {
+public class VersionDTO {
 
     private String name;
 
@@ -13,11 +15,20 @@ public class VersionRepresentation {
 
     private Set<String> activeFeatures;
 
+    public VersionDTO(String name, boolean valid, String... activeFeatures) {
+        this.name = name;
+        this.valid = valid;
+        this.activeFeatures = new HashSet<>(Arrays.asList(activeFeatures));
+    }
+
+    public VersionDTO() {
+    }
+
     public String getName() {
         return name;
     }
 
-    public VersionRepresentation setName(String name) {
+    public VersionDTO setName(String name) {
         this.name = name;
         return this;
     }
@@ -26,7 +37,7 @@ public class VersionRepresentation {
         return valid;
     }
 
-    public VersionRepresentation setValid(boolean valid) {
+    public VersionDTO setValid(boolean valid) {
         this.valid = valid;
         return this;
     }
@@ -35,7 +46,7 @@ public class VersionRepresentation {
         return activeFeatures;
     }
 
-    public VersionRepresentation setActiveFeatures(Set<String> activeFeatures) {
+    public VersionDTO setActiveFeatures(Set<String> activeFeatures) {
         this.activeFeatures = activeFeatures;
         return this;
     }
@@ -44,7 +55,6 @@ public class VersionRepresentation {
     public String toString() {
         return MoreObjects.toStringHelper(this)
                 .add("name", name)
-                .add("valid", valid)
                 .add("activeFeatures", activeFeatures)
                 .toString();
     }
@@ -53,15 +63,14 @@ public class VersionRepresentation {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        VersionRepresentation that = (VersionRepresentation) o;
-        return valid == that.valid &&
-                Objects.equals(name, that.name) &&
+        VersionDTO that = (VersionDTO) o;
+        return Objects.equals(name, that.name) &&
                 Objects.equals(activeFeatures, that.activeFeatures);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(name, valid, activeFeatures);
+        return Objects.hash(name, activeFeatures);
     }
 }

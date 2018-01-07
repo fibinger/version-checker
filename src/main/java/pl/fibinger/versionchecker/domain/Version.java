@@ -13,8 +13,12 @@ public class Version {
     @Column(name = "name", nullable = false)
     private String name;
 
-    public Version(String name) {
+    @Column(name = "valid", nullable = false)
+    private Boolean valid;
+
+    public Version(String name, Boolean valid) {
         this.name = name;
+        this.valid = valid;
     }
 
     public Version() {
@@ -34,5 +38,13 @@ public class Version {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean getValid() {
+        return valid;
+    }
+
+    public void setValid(Boolean valid) {
+        this.valid = valid;
     }
 }
