@@ -27,9 +27,9 @@ public class VersionsResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/{versionName}/validity")
-    public VersionRepresentation getVersion(@PathParam("versionName") String versionName) {
-        return versionService.getVersionRepresentation(versionName);
+    @Path("/{versionName}")
+    public VersionRepresentation getVersion(@PathParam("versionName") String versionName, @QueryParam("userId") Long userId) {
+        return versionService.getVersionRepresentation(versionName, userId);
     }
 
     @POST
@@ -40,7 +40,7 @@ public class VersionsResource {
 
     @PUT
     @Path("/{versionName}/features")
-    public void putVersionFeatures(@PathParam("versionName") String versionName, Set<String> features) {
-        versionService.setFeatures(versionName, features);
+    public void putVersionFeatures(@PathParam("versionName") String versionName, @QueryParam("userId") Long userId, Set<String> features) {
+        versionService.setFeatures(versionName, userId, features);
     }
 }

@@ -5,3 +5,9 @@ CREATE TABLE version (
   PRIMARY KEY (id),
   UNIQUE INDEX (name)
 );
+
+CREATE TABLE user (
+  id   BIGINT UNSIGNED AUTO_INCREMENT,
+  name VARCHAR(20) NOT NULL,
+  PRIMARY KEY (id)
+);

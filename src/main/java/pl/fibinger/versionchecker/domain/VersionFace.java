@@ -3,8 +3,8 @@ package pl.fibinger.versionchecker.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "version_feature")
-public class VersionFeature {
+@Table(name = "version_face")
+public class VersionFace {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,8 +15,8 @@ public class VersionFeature {
     private Version version;
 
     @ManyToOne
-    @JoinColumn(name = "feature_id", nullable = false)
-    private Feature feature;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Long getId() {
         return id;
@@ -34,11 +34,12 @@ public class VersionFeature {
         this.version = version;
     }
 
-    public Feature getFeature() {
-        return feature;
+    public User getUser() {
+        return user;
     }
 
-    public void setFeature(Feature feature) {
-        this.feature = feature;
+    public void setUser(User user) {
+        this.user = user;
     }
+
 }
