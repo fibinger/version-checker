@@ -19,6 +19,12 @@ public class UserService {
         return userRepository.findByName(userName);
     }
 
+    /**
+     * Add new user.
+     *
+     * @param userName name of the user
+     * @return newly created user
+     */
     public UserRepresentation addUser(String userName) {
         User user = userRepository.save(new User(userName));
         return new UserRepresentation().setId(user.getId()).setName(user.getName());

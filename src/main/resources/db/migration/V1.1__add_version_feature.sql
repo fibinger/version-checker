@@ -5,7 +5,7 @@ CREATE TABLE feature (
   PRIMARY KEY (id)
 );
 
-CREATE TABLE version_face (
+CREATE TABLE version_configuration (
   id         BIGINT UNSIGNED AUTO_INCREMENT,
   version_id BIGINT UNSIGNED NOT NULL,
   user_id    BIGINT UNSIGNED,
@@ -15,12 +15,12 @@ CREATE TABLE version_face (
   UNIQUE INDEX (user_id, version_id)
 );
 
-CREATE TABLE version_face_feature (
+CREATE TABLE version_configuration_feature (
   id         BIGINT UNSIGNED AUTO_INCREMENT,
-  version_face_id BIGINT UNSIGNED NOT NULL,
+  version_configuration_id BIGINT UNSIGNED NOT NULL,
   feature_id BIGINT UNSIGNED NOT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (version_face_id) REFERENCES version_face (id),
+  FOREIGN KEY (version_configuration_id) REFERENCES version_configuration (id),
   FOREIGN KEY (feature_id) REFERENCES feature (id),
-  UNIQUE INDEX (version_face_id, feature_id)
+  UNIQUE INDEX (version_configuration_id, feature_id)
 );

@@ -3,8 +3,8 @@ package pl.fibinger.versionchecker.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "version_face")
-public class VersionFace {
+@Table(name = "version_configuration")
+public class VersionConfiguration {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
