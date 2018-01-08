@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.fibinger.versionchecker.dao.FeatureRepository;
 import pl.fibinger.versionchecker.domain.Feature;
+import pl.fibinger.versionchecker.exception.ValidationException;
 
 import javax.transaction.Transactional;
 import java.util.Arrays;
@@ -41,12 +42,12 @@ public class FeatureService {
      * Validates features by checking if they are available.
      *
      * @param features list of features to be checked
-     * @throws RuntimeException if at least one of the features is not available
+     * @throws ValidationException if at least one of the features is not available
      */
     public void validateFeatures(String... features) {
         List<String> availableFeatureNames = getAllFeatures().stream().map(Feature::getName).collect(Collectors.toList());
         if (!availableFeatureNames.containsAll(Arrays.asList(features))) {
-            throw new RuntimeException("Invalid features"); // TODO implement exception mapper
+            throw new ValidationException("Not all features are available");
         }
     }
 

@@ -13,6 +13,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.fibinger.versionchecker.dto.VersionDTO;
@@ -48,7 +50,14 @@ public class VersionCheckerApplicationTests {
     }
 
     @Test
-    public void test_3_assertVersions() {
+    public void test_3_tryAddingVersionNotAvailableFeatures() {
+        ResponseEntity<String> response = restTemplate.postForEntity("/versions", new VersionDTO("1.0", false, "invalid_feature", "billing"), String.class);
+        Assert.assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        Assert.assertEquals("Not all features are available", response.getBody());
+    }
+
+    @Test
+    public void test_4_assertVersions() {
         List<String> versions = restTemplate.exchange(
                 "/versions", HttpMethod.GET, HttpEntity.EMPTY, new ParameterizedTypeReference<List<String>>() {
                 }).getBody();
@@ -61,7 +70,7 @@ public class VersionCheckerApplicationTests {
     }
 
     @Test
-    public void test_4_assertVersionsPerUser() {
+    public void test_5_assertVersionsPerUser() {
         UserRepresentation franekUser = restTemplate.postForEntity("/users", "Franek", UserRepresentation.class).getBody();
         restTemplate.postForEntity("/users", "Mietek", UserRepresentation.class);
 
