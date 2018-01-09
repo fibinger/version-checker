@@ -8,3 +8,15 @@ create database version_checker;
 create user 'tide'@'%' identified by 'tide';
 grant all on version_checker.* to 'tide'@'%';
 ```
+
+To run application execute following command:
+
+```
+./gradlew bootRun
+```
+
+Run tests with command:
+
+```
+./gradlew tests
+```
